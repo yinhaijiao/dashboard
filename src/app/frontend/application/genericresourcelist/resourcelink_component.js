@@ -44,6 +44,11 @@ class ResourceLinkController {
   constructor($state) {
     /** @private {!ui.router.$state} */
     this.state_ = $state;
+    this.detailState = '';
+    this.href = '';
+    this.name = '';
+    this.namespace = '';
+    this.kind = '';
   }
 
   $onInit() {
@@ -107,7 +112,7 @@ class ResourceLinkController {
         this.detailState = StorageclassDetail;
         break;
       default:
-        this.detailState = null;
+        this.detailState = '';
     }
     return this.state_.href(this.detailState, new StateParams(this.namespace, this.name));
   }
