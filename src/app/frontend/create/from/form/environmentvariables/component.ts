@@ -12,38 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@import '../../../variables';
+import {Component} from '@angular/core';
 
-.kd-create-from-input-info {
-  margin-bottom: $baseline-grid * 3;
-  padding: 0 (.5 * $baseline-grid);
-
-  .material-icons {
-    font-size: $body-font-size-base;
-  }
-}
-
-.kd-create-from-input-button {
-  margin-left: 0;
-}
-
-kd-text-input::ng-deep ace-editor {
-  margin-bottom: $baseline-grid * 3;
-}
-
-.kd-block {
-  display: block;
-}
-
-// TODO:
-$tmp-red: #ff5722;
-
-input {
-  ~ span {
-    &.kd-warn-threshold {
-      color: $tmp-red;
-      display: inherit;
-      font-size: $caption-font-size-base;
-    }
-  }
+@Component({
+  selector: 'kd-environment-variables',
+  templateUrl: './template.html',
+  styleUrls: ['./style.scss']
+})
+export class EnvironmentVariablesComponent {
+  constructor() {}
 }

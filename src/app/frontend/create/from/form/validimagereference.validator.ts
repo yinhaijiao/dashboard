@@ -18,36 +18,35 @@ import {AbstractControl, AsyncValidator, FormControl, NG_ASYNC_VALIDATORS, NgMod
 import {Observable} from 'rxjs/Observable';
 import {debounceTime, map} from 'rxjs/operators';
 
-export const uniqueNameValidationKey = 'uniqueName';
+export const uniqueNameValidationKey = 'validImageReference';
 
 /**
  * A validator directive which checks the underlining ngModel's given name is unique or not.
  * If the name exists, error with name `uniqueName` will be added to errors.
  */
 @Directive({
-  selector: '[kdUniqueName]',
+  selector: '[kdValidImageReference]',
   providers: [{
     provide: NG_ASYNC_VALIDATORS,
-    useExisting: forwardRef(() => UniqueNameValidator),
+    useExisting: forwardRef(() => ValidImageReferenceValidator),
     multi: true
   }]
 })
-export class UniqueNameValidator implements AsyncValidator, Validator {
+export class ValidImageReferenceValidator implements AsyncValidator, Validator {
   @Input() namespace: string;
 
   constructor(private readonly http: HttpClient) {}
 
-  validate(control: AbstractControl): Observable<{[key: string]: boolean}> {
+  validate(control: AbstractControl): Observable<{[key: string]: string}> {
     if (!control.value) {
       return Observable.of(null);
     } else {
       return this.http
-          .post<{valid: boolean}>(
-              'api/v1/appdeployment/validate/name',
-              {name: control.value, namespace: this.namespace})
+          .post<{valid: boolean, reason: string}>(
+              'api/v1/appdeployment/validate/imagereference', {reference: control.value})
           .pipe(
               debounceTime(500),
-              map(res => !res.valid ? {[uniqueNameValidationKey]: control.value} : null));
+              map(res => !res.valid ? {[uniqueNameValidationKey]: res.reason} : null));
     }
   }
 

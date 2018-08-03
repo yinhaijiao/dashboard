@@ -17,14 +17,22 @@ import {NgModule} from '@angular/core';
 import {ComponentsModule} from '../../../common/components/module';
 import {SharedModule} from '../../../shared.module';
 import {CreateFromFormComponent} from './component';
+import {DeployLabelComponent} from './deploylabel/component';
+import {EnvironmentVariablesComponent} from './environmentvariables/component';
 import {HelpSectionComponent} from './helpsection/component';
 import {UserHelpComponent} from './helpsection/userhelp/component';
+import {PortMappingsComponent} from './portmappings/component';
 import {UniqueNameValidator} from './uniquename.validator';
+import {ValidImageReferenceValidator} from './validimagereference.validator';
+import {WarnThresholdValidator} from './warnthreshold.validator';
 
 // TODO
 @NgModule({
-  declarations:
-      [HelpSectionComponent, UserHelpComponent, CreateFromFormComponent, UniqueNameValidator],
+  declarations: [
+    HelpSectionComponent, UserHelpComponent, CreateFromFormComponent, EnvironmentVariablesComponent,
+    UniqueNameValidator, ValidImageReferenceValidator, PortMappingsComponent, DeployLabelComponent,
+    WarnThresholdValidator
+  ],
   imports: [CommonModule, SharedModule, ComponentsModule],
   exports: [CreateFromFormComponent],
 })
